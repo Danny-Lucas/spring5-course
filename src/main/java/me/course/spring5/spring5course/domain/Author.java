@@ -1,6 +1,6 @@
 package me.course.spring5.spring5course.domain;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -8,7 +8,14 @@ public class Author {
 
     private String firstName;
     private String lastName;
+
+    @ManyToMany(mappedBy = "authors")
     private Set<Book> books;
+
+    @Column(name = "id", nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     public Author(){}
 
@@ -16,6 +23,14 @@ public class Author {
         this.firstName = firstName;
         this.lastName = lastName;
         this.books = books;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
